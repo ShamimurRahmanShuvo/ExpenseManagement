@@ -1,0 +1,32 @@
+{% include "header.html" %}
+        <header class="masthead"
+                style="background-image: url('../static/assets/img/cover_image.jpg')"
+        >
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Personal Expense Management</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container text-center px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <a href="{{ url_for('add_expense') }}" class="btn btn-danger btn-lg"
+                       tabindex="-1" role="button" aria-disabled="true">Add Expense
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <a href="{{ url_for('add_income') }}" class="btn btn-success btn-lg"
+                       tabindex="-1" role="button" aria-disabled="true">Add Income
+                    </a>
+                </div>
+                <div class="col-md-4 col-lg-4 col-xl-4">
+                    <a href="{{ url_for('view_report') }}" class="btn btn-warning btn-lg"
+                       tabindex="-1" role="button" aria-disabled="true">View Report
+                    </a>
+                </div>
+            </div>
+        </div>
+{% include "footer.html" %}
