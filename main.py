@@ -10,7 +10,7 @@ from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
-## from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+from forms import RegisterForm, LoginForm, ExpenseTypeForm, IncomeTypeForm
 
 
 app = Flask(__name__)
@@ -26,17 +26,31 @@ def home():
 
 @app.route("/register")
 def register():
-    return render_template("register.html")
+    form = RegisterForm()
+    return render_template("register.html", form=form)
 
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    return render_template("login.html", form=form)
 
 
 @app.route("/add-expense")
 def add_expense():
     return render_template("expense.html")
+
+
+@app.route("/add-expense-type")
+def add_expense_type():
+    form = ExpenseTypeForm()
+    return render_template("expense_type.html", form=form)
+
+
+@app.route("/add-income-type")
+def add_income_type():
+    form = IncomeTypeForm()
+    return render_template("income_type.html", form=form)
 
 
 @app.route("/add-income")
