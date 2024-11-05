@@ -55,6 +55,7 @@
                                href="/">Home
                             </a>
                         </li>
+                        {% if not current_user.is_authenticated: %}
                         <li class="nav-item">
                             <a class="nav-link px-lg-3 py-3 py-lg-4"
                                href="{{ url_for('login') }}">Login
@@ -65,11 +66,13 @@
                                href="{{ url_for('register') }}">Register
                             </a>
                         </li>
+                        {% else: %}
                         <li class="nav-item">
                             <a class="nav-link px-lg-3 py-3 py-lg-4"
-                               href="#">Log Out
+                               href="{{ url_for('logout') }}">Log Out
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
