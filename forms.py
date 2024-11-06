@@ -41,3 +41,13 @@ class AddIncomeForm(FlaskForm):
     source = StringField("Income Source", validators=[DataRequired()])
     amount = DecimalField("Income Amount", places=2, validators=[DataRequired()])
     submit = SubmitField("Add Expense")
+
+
+class ViewReportForm(FlaskForm):
+    category = SelectField("Report Category",
+                           choices=[('Income', 'Income'), ('Expense', 'Expense'), ('Both', 'Both')],
+                           validators=[DataRequired()])
+    report_type = SelectField("Report Type",
+                              choices=[('Monthly', 'Monthly'), ('Yearly', 'Yearly')],
+                              validators=[DataRequired()])
+    submit = SubmitField("Show Report")

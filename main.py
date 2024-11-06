@@ -10,11 +10,11 @@ from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Float
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import RegisterForm, LoginForm, AddExpenseForm, ExpenseTypeForm, IncomeTypeForm, AddIncomeForm
+from forms import RegisterForm, LoginForm, AddExpenseForm, ExpenseTypeForm, IncomeTypeForm, AddIncomeForm, ViewReportForm
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY', '8BYkEfBA6O6donzWlSihBXox7C0sKR6b')
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 
@@ -265,7 +265,8 @@ def add_expense():
 
 @app.route("/view-report")
 def view_report():
-    return render_template("report.html", current_user=current_user)
+    form = ViewReportForm()
+    return render_template("report.html", current_user=current_user, form=form)
 
 
 if __name__ == "__main__":
