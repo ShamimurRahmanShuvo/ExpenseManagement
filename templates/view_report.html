@@ -1,0 +1,48 @@
+{% block content %}
+{% include "header.html" %}
+        <header class="masthead"
+                style="background-image: url('../static/assets/img/cover_image.jpg')"
+        >
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>View Report</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="mb-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        {% if results: %}
+                        <h5 class="text-center"> {{table}} report for {{user}} from {{from_date}} to {{to_date}}</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Source</th>
+                                        <th scope="col">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for result in results: %}
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>{{result.date}}</td>
+                                        <td>{{result.source}}</td>
+                                        <td>{{result.amount}}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </main>
+{% include "footer.html" %}
+{% endblock %}

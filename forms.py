@@ -17,37 +17,23 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 
-class ExpenseTypeForm(FlaskForm):
-    expense_type = StringField("Expense Type", validators=[DataRequired()])
-    submit = SubmitField("Add Expense Type")
+class AddTransactionTypeForm(FlaskForm):
+    transaction_type = StringField("Transaction Type", validators=[DataRequired()])
+    submit = SubmitField("Add Transaction Type")
 
 
-class AddExpenseForm(FlaskForm):
-    expense_id = SelectField("Expense Type", coerce=int, choices=[], validators=[DataRequired()])
-    date = DateField("Date", validators=[DataRequired()])
-    details = StringField("Expense Name", validators=[DataRequired()])
-    amount = DecimalField("Expense Amount", places=2, validators=[DataRequired()])
-    submit = SubmitField("Add Expense")
-
-
-class IncomeTypeForm(FlaskForm):
-    income_type = StringField("Income Type", validators=[DataRequired()])
-    submit = SubmitField("Add Income Type")
-
-
-class AddIncomeForm(FlaskForm):
-    income_id = SelectField("Income Type", coerce=int, choices=[], validators=[DataRequired()])
-    date = DateField("Date", validators=[DataRequired()])
-    source = StringField("Income Source", validators=[DataRequired()])
-    amount = DecimalField("Income Amount", places=2, validators=[DataRequired()])
-    submit = SubmitField("Add Expense")
+class AddTransactionForm(FlaskForm):
+    transaction_type_id = SelectField("Transaction Type", choices=[], coerce=int, validators=[DataRequired()])
+    transaction_date = DateField("Transaction Date", validators=[DataRequired()])
+    transaction_name = StringField("Transaction Name", validators=[DataRequired()])
+    transaction_amount = DecimalField("Transaction Amount", places=2, validators=[DataRequired()])
+    submit = SubmitField("Add Transaction")
 
 
 class ViewReportForm(FlaskForm):
     category = SelectField("Report Category",
-                           choices=[('Income', 'Income'), ('Expense', 'Expense'), ('Both', 'Both')],
+                           choices=[('1', 'Income'), ('2', 'Expense'), ('3', 'Both')],
                            validators=[DataRequired()])
-    report_type = SelectField("Report Type",
-                              choices=[('Monthly', 'Monthly'), ('Yearly', 'Yearly')],
-                              validators=[DataRequired()])
+    from_date = DateField("From", validators=[DataRequired()])
+    to_date = DateField("To", validators=[DataRequired()])
     submit = SubmitField("Show Report")
