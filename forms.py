@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, EmailField, SelectField, DateField, DecimalField
 from wtforms.validators import DataRequired, Email
-from flask_ckeditor import CKEditorField
 
 
 class RegisterForm(FlaskForm):
@@ -31,9 +30,9 @@ class AddTransactionForm(FlaskForm):
 
 
 class ViewReportForm(FlaskForm):
-    category = SelectField("Report Category",
-                           choices=[('1', 'Income'), ('2', 'Expense'), ('3', 'Both')],
-                           validators=[DataRequired()])
+    transaction_type = SelectField("Report Type",
+                                   choices=[('1', 'Income'), ('2', 'Expense'), ('3', 'Both')],
+                                   validators=[DataRequired()])
     from_date = DateField("From", validators=[DataRequired()])
     to_date = DateField("To", validators=[DataRequired()])
     submit = SubmitField("Show Report")

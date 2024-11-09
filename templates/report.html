@@ -14,11 +14,49 @@
         </header>
         <main class="mb-4">
             <div class="container">
+                {% if not results: %}
                 <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
                         {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
                     </div>
                 </div>
+                {% else: %}
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        <h5 class="text-center">
+                            {{report_type}} transactions for {{current_user.username}} from {{from_date}} to {{to_date}}
+                        </h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Transaction Type</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Source</th>
+                                        <th scope="col">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for result in results %}
+                                    <tr>
+                                        <th scope="row">{{results.index(result) + 1}}</th>
+                                        <td>{{result.type_relation.type_name}}</td>
+                                        <td>{{result.transaction_date}}</td>
+                                        <td>{{result.transaction_name}}</td>
+                                        <td>{{result.transaction_amount}}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-sm-end">
+                            <a href="{{ url_for('report') }}" tabindex="-1">Back to Report</a>
+                        </p>
+
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </main>
 {% include "footer.html" %}

@@ -179,51 +179,49 @@ def add_transaction():
 
     return render_template("transaction.html", form=form, current_user=current_user)
 
-"""
+
 @app.route("/report", methods=["GET", "POST"])
 def report():
     form = ViewReportForm()
 
     if form.validate_on_submit():
         if not current_user.is_authenticated:
-            flash("You need to login to see your report")
+            flash("You need to login to see your transaction history")
             return redirect(url_for("login"))
 
         user = current_user.id
-        table = form.category.data
+        transaction_type = int(form.transaction_type.data)
         from_date = form.from_date.data
         to_date = form.to_date.data
-        print(user, table, from_date, to_date)
 
-        if table == "Income":
-            results = Income.query.filter(Income.transaction_date.between(from_date, to_date)).where(
-                Income.user_id == user).all()
-            return render_template("view_report.html",
+        if transaction_type == 3:
+            results = Transactions.query.filter((
+                Transactions.transaction_date.between(from_date, to_date)) &
+                                                (Transactions.user_id == user)).all()
+            return render_template("report.html",
                                    results=results,
-                                   table=table,
+                                   report_type="All",
                                    from_date=from_date,
                                    to_date=to_date,
-                                   user=current_user.username)
-        elif table == "Expense":
-            results = Expense.query.filter(Expense.transaction_date.between(from_date, to_date)).where(
-                Expense.user_id == user).all()
-            return render_template("view_report.html",
-                                   results=results,
-                                   table=table,
-                                   from_date=from_date,
-                                   to_date=to_date,
-                                   user=current_user.username)
+                                   current_user=current_user
+                                   )
         else:
-            flash("Select report category")
-            return redirect(url_for("report"))
+            results = Transactions.query.filter((
+                                                    Transactions.transaction_date.between(from_date, to_date)) &
+                                                (Transactions.transaction_type_id == transaction_type) &
+                                                (Transactions.user_id == user)).all()
+            type_name = results[0].type_relation.type_name
+
+            return render_template("report.html",
+                                   results=results,
+                                   report_type=type_name,
+                                   from_date=from_date,
+                                   to_date=to_date,
+                                   current_user=current_user
+                                   )
 
     return render_template("report.html", current_user=current_user, form=form)
 
-
-@app.route("/view-report")
-def view_report():
-    return render_template("view_report.html", current_user=current_user)
-"""
 
 if __name__ == "__main__":
     app.run(debug=True, port=5002)
